@@ -1,9 +1,17 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Bullet : Ammunition
 {
+    [SerializeField] private float _lifeTime;
+
     public event UnityAction<Bullet> BulletDestroyed;
+
+    private void OnEnable()
+    {
+        Destroy(gameObject, _lifeTime);
+    }
 
     private void Update()
     {

@@ -11,11 +11,15 @@ public class Spikes : Obstacle
     {
         if (collision.gameObject.TryGetComponent<Player>(out var player))
         {
-            StartCoroutine(EnableTriggerForTime());
-            StartCoroutine(DisableControl(player));
-            ApplyDamage(player);
-            PushTarget(player);
-            _audioSource.Play();
+            Attack(player);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<Player>(out var player))
+        {
+            Attack(player);
         }
     }
 

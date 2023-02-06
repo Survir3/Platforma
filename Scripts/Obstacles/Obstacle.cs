@@ -49,4 +49,13 @@ public abstract class Obstacle : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _audioSource.playOnAwake = false;
     }
+
+    protected void Attack(Player player)
+    {
+        StartCoroutine(EnableTriggerForTime());
+        StartCoroutine(DisableControl(player));
+        ApplyDamage(player);
+        PushTarget(player);
+        _audioSource.Play();
+    }
 }

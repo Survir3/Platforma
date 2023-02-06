@@ -41,7 +41,10 @@ public class MoverPlayer : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        _canJump=collision.gameObject.TryGetComponent<Ground>(out var ground);
+        if (collision.gameObject.TryGetComponent<TriggerHandlerFuit>(out var handler))
+            return;
+
+        _canJump =collision.gameObject.TryGetComponent<Ground>(out var ground);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -55,7 +58,7 @@ public class MoverPlayer : MonoBehaviour
     private void Move(float direction)
     {
         var direct = new Vector3(direction * _moveSpeed * Time.deltaTime, 0, 0);
-        transform.position += direct;
+        _rigidbody.AddForce(direct);
 
         DirectionChanged?.Invoke(direction);
     }

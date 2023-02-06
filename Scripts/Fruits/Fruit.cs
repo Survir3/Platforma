@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-[RequireComponent(typeof(TriggerHandlerFruit))]
+[RequireComponent(typeof(TriggerHandlerFuit))]
 public class Fruit : MonoBehaviour
 {
     [SerializeField] private int _points;
-    [SerializeField] private TriggerHandlerFruit _collisionHandlerFruit;
+    [SerializeField] private TriggerHandlerFuit _collisionHandlerFruit;
 
     private void OnEnable()
     {

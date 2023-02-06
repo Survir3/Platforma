@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -36,32 +38,50 @@ public class ShooterEnemy : Shooter
 
     protected override void SetDirectionTarget()
     {
-        RaycastHit2D hit = Physics2D.Raycast(_shootPoint.position, Vector2.left, _distanceSearchTarget, _layerMask);
+        var foundPlayer = SearchPlayerInDirection(Vector2.left);
 
-        if (hit)
+        if (foundPlayer)
         {
             _directionShoot = Vector2.left;
+            _isTarget = foundPlayer;
         }
         else
         {
-            hit = Physics2D.Raycast(_shootPoint.position, Vector2.right, _distanceSearchTarget, _layerMask);
+            foundPlayer = SearchPlayerInDirection(Vector2.right);
 
-            if (hit)
+            if (foundPlayer)
             {
                 _directionShoot = Vector2.right;
-
+                _isTarget = foundPlayer;
             }
-        }
-
-        if (hit)
-        {
-            _isTarget = hit.collider.gameObject.TryGetComponent<Player>(out var player);
-        }
-        else
-        {
-            _isTarget = false;
+            else
+            {
+                _isTarget = foundPlayer;
+            }
         }
 
         TargetSeting?.Invoke(_isTarget, _directionShoot.x);
     }
+
+    private bool SearchPlayerInDirection(Vector2 direction)
+    {
+        int minCountHits = 1;
+        int firstHit = 0;
+        Player player;
+        Ground ground;
+
+        List<RaycastHit2D> hits = Physics2D.RaycastAll(_shootPoint.position, direction, _distanceSearchTarget, _layerMask).ToList();
+
+        var filteredHits = hits.Where(hit => hit.collider.TryGetComponent(out player)
+                                  || hit.collider.TryGetComponent(out ground)).ToList();
+
+
+        if (filteredHits.Count >= minCountHits)
+        {
+            return filteredHits[firstHit].collider.TryGetComponent(out player);
+        }
+
+        return false;
+    }
+
 }

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +11,10 @@ public class Player : MonoBehaviour
     public int Points { get; private set; }
 
     public event UnityAction Died;
+    public event UnityAction<float> HealthChanged;
+    public event UnityAction<int> PointsChanged;
+    public event UnityAction TookDamage;
+
 
     private void Awake()
     {
@@ -22,6 +25,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _currentHealth = _maxHealth;
+        HealthChanged?.Invoke((float)_currentHealth /_maxHealth);
     }
 
     private void OnDisable()
@@ -38,8 +42,10 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _currentHealth -= damage;
+        HealthChanged?.Invoke((float)_currentHealth/ _maxHealth);
+        TookDamage?.Invoke();
 
-        if(_currentHealth<0)
+        if (_currentHealth<0)
         {
             Die();
         }
@@ -53,5 +59,6 @@ public class Player : MonoBehaviour
     public void AddPoint(int point)
     {
         Points += point;
+        PointsChanged?.Invoke(Points);
     }
 }

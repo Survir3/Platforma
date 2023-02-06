@@ -1,14 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(ColliderHandlerEnemy))]
+[RequireComponent(typeof(ColliderHandler))]
 public class AttackState : State
 {
     [SerializeField] private int _damage;
     [SerializeField] private int _speed;
     [SerializeField, Range(0,1)] private float _powerPush;
     [SerializeField] private float _timeDisableControl;
-    [SerializeField] private ColliderHandlerEnemy _collisionHandler;
+    [SerializeField] private ColliderHandler _collisionHandler;
 
     private Vector3 _pointTarget;
 

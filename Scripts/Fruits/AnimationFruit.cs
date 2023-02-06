@@ -3,7 +3,7 @@ using UnityEngine;
 public class AnimationFruit : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-    [SerializeField] private TriggerHandlerFruit _triggerHandlerFruit;
+    [SerializeField] private TriggerHandlerFuit _triggerHandlerFruit;
 
     private const string _isCollect= "isCollect";
 

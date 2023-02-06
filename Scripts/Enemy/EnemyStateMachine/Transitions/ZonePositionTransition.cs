@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[RequireComponent(typeof(ColliderHandlerEnemy))]
+[RequireComponent(typeof(ColliderHandler))]
 public class ZonePositionTransition : Transition
 {
-    [SerializeField] private ColliderHandlerEnemy _collisionHandler;
+    [SerializeField] private ColliderHandler _collisionHandler;
 
     private void OnEnable()
     {

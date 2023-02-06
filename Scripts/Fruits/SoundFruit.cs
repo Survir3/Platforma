@@ -3,7 +3,7 @@ using UnityEngine;
 public class SoundFruit : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private TriggerHandlerFruit _triggerHandlerFruit;
+    [SerializeField] private TriggerHandlerFuit _triggerHandlerFruit;
 
 
     private void OnEnable()
